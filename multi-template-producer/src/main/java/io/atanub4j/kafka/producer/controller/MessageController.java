@@ -22,7 +22,13 @@ public class MessageController {
     private KafkaTemplate<String, Object> kafkaTemplateObject;
     @Autowired
     private KafkaTemplate<Integer, byte[]> kafkaTemplateByteArray;
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplateWithProducerListener;
 
+    /*
+     * Completable future approach to log success / failure of message send
+     * per-message solution
+     */
     private static void logMessage(SendResult<?, ?> result, Throwable ex) {
         if (null != ex) {
             log.error("Error sending message. Exception: {}", ex.getMessage());
@@ -54,4 +60,8 @@ public class MessageController {
                 .whenComplete(MessageController::logMessage);
     }
 
+    @PostMapping("/send/with-producer-listener/{message}")
+    public void sendMessageWithProducerListener(@PathVariable String message) {
+        kafkaTemplateWithProducerListener.sendDefault(message);
+    }
 }
