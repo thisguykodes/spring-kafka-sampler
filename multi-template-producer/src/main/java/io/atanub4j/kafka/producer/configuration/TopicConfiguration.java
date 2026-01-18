@@ -8,13 +8,14 @@ import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.KafkaAdmin;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
 @Configuration
 public class TopicConfiguration {
     @Bean
-    KafkaAdmin admin(Supplier<String> bootstrapServersSupplier) {
+    KafkaAdmin admin(Supplier<List<String>> bootstrapServersSupplier) {
         Map<String, Object> configs = new HashMap<>();
         configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServersSupplier);
         return new KafkaAdmin(configs);

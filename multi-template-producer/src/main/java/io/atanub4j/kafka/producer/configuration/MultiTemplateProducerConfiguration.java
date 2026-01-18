@@ -10,6 +10,7 @@ import org.springframework.kafka.core.ProducerFactory;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -17,14 +18,14 @@ import java.util.function.Supplier;
 public class MultiTemplateProducerConfiguration {
 
     @Bean
-    public Supplier<String> bootstrapServersSupplier() {
-        return () -> "localhost:9092";
+    public Supplier<List<String>> bootstrapServersSupplier() {
+        return () -> List.of("localhost:9092");
     }
     /*
      * Common producer configurations
      */
     @Bean
-    public Map<String, Object> baseProducerConfigs(Supplier<String> bootstrapServersSupplier) {
+    public Map<String, Object> baseProducerConfigs(Supplier<List<String>> bootstrapServersSupplier) {
         Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServersSupplier.get());
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
