@@ -23,7 +23,7 @@ public class MessageController {
     @Autowired
     private KafkaTemplate<Integer, byte[]> kafkaTemplateByteArray;
 
-    private static void logMessageSuccess(SendResult<?, ?> result, Throwable ex) {
+    private static void logMessage(SendResult<?, ?> result, Throwable ex) {
         if (null != ex) {
             log.error("Error sending message. Exception: {}", ex.getMessage());
         } else {
@@ -37,21 +37,21 @@ public class MessageController {
     public void sendStringMessageToKafkaTopic(@PathVariable String message) {
         kafkaTemplateString
             .send("foo-topic", "1", message)
-            .whenComplete(MessageController::logMessageSuccess);
+            .whenComplete(MessageController::logMessage);
     }
 
     @PostMapping("/send/pojo/{message}")
     public void sendPojoMessageToKafkaTopic(@PathVariable String message) {
         kafkaTemplateObject
             .send("foo-topic", "1", new Foo(message))
-            .whenComplete(MessageController::logMessageSuccess);
+            .whenComplete(MessageController::logMessage);
     }
 
     @PostMapping("/send/byte/{message}")
     public void sendByteArrayMessageToKafkaTopic(@PathVariable String message) {
         kafkaTemplateByteArray
                 .send("foo-topic", 1, message.getBytes(StandardCharsets.UTF_8))
-                .whenComplete(MessageController::logMessageSuccess);
+                .whenComplete(MessageController::logMessage);
     }
 
 }
