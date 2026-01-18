@@ -1,0 +1,5 @@
+This project shows various samples demonstrating the usage of Spring for Apache Kafka.
+Each sample is a standalone Spring Boot application located in its own subdirectory.
+To run a sample, navigate to its directory and use the command:
+`./mvnw spring-boot:run` or build it with `./mvnw clean package` and run the resulting jar file.
+Make sure you have access to a Kafka broker; you can configure the broker address in the `application.yml` file of each sample.

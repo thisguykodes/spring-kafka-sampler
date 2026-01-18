@@ -1,0 +1,3 @@
+This module contains a sample Spring Boot application that demonstrates how to create multiple kafka templates from
+a single Producer Factory.
+The application includes a REST controller that allows users to send messages to specified topics via HTTP POST requests.

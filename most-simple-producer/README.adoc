@@ -1,0 +1,9 @@
+This is an application that shows how to create a Kafka message producer with minimal configuration.
+It uses Spring Boot and Spring for Apache Kafka to set up a REST controller that accepts messages and sends them to a Kafka topic.
+To run this application, you need to have access to a Kafka broker.
+You can configure the broker address in the `application.yml` file.
+The application exposes a REST endpoint at `/simple-producer/messages/{message}` where you can send messages via HTTP POST requests.
+
+To test the application, you can use the following curl command:
+`$ curl -X POST http://localhost:8080/simple-producer/messages/your-message`
+Replace `your-message` with the message you want to send to the Kafka topic.
